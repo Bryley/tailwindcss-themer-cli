@@ -11,7 +11,11 @@
   "bin": {
     "tailwindcss-themer-cli": "./src/index.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bryley/tailwindcss-themer-cli.git"
+  },
+  "author": "bryleyhayter@proton.me",
   "license": "ISC",
   "dependencies": {
     "chroma-js": "^3.0.0",
