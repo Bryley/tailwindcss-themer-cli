@@ -1,26 +1,30 @@
 {
-  "name": "tailwindcss-themer-cli",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "CLI tool for generating tailwind theming colors",
-  "main": "./src/index.js",
-  "scripts": {
-    "run": "node ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "bin": {
-    "tailwindcss-themer-cli": "./src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Bryley/tailwindcss-themer-cli.git"
-  },
-  "author": "bryleyhayter@proton.me",
-  "license": "ISC",
-  "dependencies": {
-    "chroma-js": "^3.0.0",
-    "commander": "^12.1.0",
-    "yaml": "^2.5.0",
-    "zod": "^3.23.8"
-  }
+    "name": "tailwindcss-themer-cli",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "CLI tool for generating tailwind theming colors",
+    "main": "./src/index.js",
+    "scripts": {
+        "run": "node ./src/index.js",
+        "gen-schema": "node ./src/genJsonSchema.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "bin": {
+        "tailwindcss-themer-cli": "./src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Bryley/tailwindcss-themer-cli.git"
+    },
+    "author": "bryleyhayter@proton.me",
+    "license": "ISC",
+    "dependencies": {
+        "chroma-js": "^3.0.0",
+        "commander": "^12.1.0",
+        "yaml": "^2.5.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "zod-to-json-schema": "^3.23.2"
+    }
 }

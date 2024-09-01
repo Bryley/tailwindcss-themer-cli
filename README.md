@@ -57,6 +57,7 @@ themes used throughout your application.
 Here is an example configuration:
 
 ```yaml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Bryley/tailwindcss-themer-cli/main/theme.schema.json
 default-light-theme: day  # The name of the default light theme to use
 default-dark-theme: night  # The name of the default dark theme to use (this is optional)
 

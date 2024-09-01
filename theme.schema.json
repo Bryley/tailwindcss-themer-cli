@@ -1,0 +1,174 @@
+{
+  "$ref": "#/definitions/ThemesConfig",
+  "definitions": {
+    "ThemesConfig": {
+      "type": "object",
+      "properties": {
+        "default-light-theme": {
+          "type": "string",
+          "description": "Default theme to use for light mode"
+        },
+        "default-dark-theme": {
+          "type": "string",
+          "description": "Default theme to use for dark mode"
+        },
+        "themes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "colors": {
+                "type": "object",
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "description": "A single color as RGB hex"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "start": {
+                          "type": "string",
+                          "description": "The start color (color 100)"
+                        },
+                        "end": {
+                          "type": "string",
+                          "description": "The end color (color 900)"
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "end"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "middle": {
+                          "type": "string",
+                          "description": "The middle color (500) for shades to generate around"
+                        },
+                        "intensities": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "array",
+                            "minItems": 3,
+                            "maxItems": 3,
+                            "items": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          "default": {
+                            "100": [
+                              -0.05,
+                              -0.5,
+                              0.8
+                            ],
+                            "200": [
+                              -0.03,
+                              -0.35,
+                              0.65
+                            ],
+                            "300": [
+                              -0.01,
+                              -0.2,
+                              0.4
+                            ],
+                            "400": [
+                              -0.005,
+                              -0.1,
+                              0.2
+                            ],
+                            "500": [
+                              0,
+                              0,
+                              0
+                            ],
+                            "600": [
+                              0.005,
+                              0.1,
+                              -0.15
+                            ],
+                            "700": [
+                              0.01,
+                              0.2,
+                              -0.3
+                            ],
+                            "800": [
+                              0.03,
+                              0.35,
+                              -0.45
+                            ],
+                            "900": [
+                              0.05,
+                              0.5,
+                              -0.6
+                            ]
+                          },
+                          "description": "The intensities for each step to set with tuples [H, S, L] as percentage adjustments"
+                        }
+                      },
+                      "required": [
+                        "middle"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "description": "Custom shades"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Array of colors to use"
+                    }
+                  ]
+                },
+                "description": "List of color definitions for the theme"
+              },
+              "color-scheme": {
+                "type": "string",
+                "enum": [
+                  "light",
+                  "dark"
+                ],
+                "default": "light",
+                "description": "If this theme is a light or dark theme"
+              }
+            },
+            "required": [
+              "colors"
+            ],
+            "additionalProperties": false
+          },
+          "description": "The themes available for the application"
+        },
+        "tailwind-config-template": {
+          "type": "string",
+          "default": "\n/** @type {import('tailwindcss').Config} */\nexport default {\n  content: [],\n  theme: {\n    colors: $TAILWIND_COLORS,\n  },\n  plugins: [],\n}\n",
+          "description": "The template to fill the `tailwind.config.js`, `$TAILWIND_COLORS` gets replaced with the colors for all the themes"
+        }
+      },
+      "required": [
+        "themes"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

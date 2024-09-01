@@ -16,27 +16,37 @@ const DEFAULT_INTENSITIES = {
  * @typedef {z.infer<typeof ColorSchema>} RawColor
  */
 export const ColorSchema = z.union([
-  z.string(), // A single color as a string, e.g., "#abcdef"
+  z.string().describe("A single color as RGB hex"),
   z.object({
-    start: z.string(), // Start color as a string, e.g., "#000000"
-    end: z.string(), // End color as a string, e.g., "#ffffff"
-  }),
+    start: z.string().describe("The start color (color 100)"),
+    end: z.string().describe("The end color (color 900)"),
+  }).describe("Describe start and end of gradient to generate"),
   z.object({
-    middle: z.string(),
+    middle: z
+      .string()
+      .describe("The middle color (500) for shades to generate around"),
     intensities: z
       .record(z.string(), z.tuple([z.number(), z.number(), z.number()]))
-      .default(DEFAULT_INTENSITIES),
-  }),
-  z.record(z.string(), z.string()),
-  z.array(z.string()), // An array of colors, e.g., ["#000000", "#ffffff"]
+      .default(DEFAULT_INTENSITIES)
+      .describe(
+        "The intensities for each step to set with tuples [H, S, L] as percentage adjustments",
+      ),
+  }).describe("Generate shade from middle color"),
+  z.record(z.string(), z.string()).describe("Custom shades"),
+  z.array(z.string()).describe("Array of colors to use"),
 ]);
 
 /**
  * @typedef {z.infer<typeof ThemeSchema>} RawTheme
  */
 export const ThemeSchema = z.object({
-  colors: z.record(ColorSchema), // Record of colors, where each key is a color name and the value is a color object/string/array
-  "color-scheme": z.enum(["light", "dark"]).default("light"), // Optional color scheme; will be set to "light" or "dark" depending on the theme key
+  colors: z
+    .record(ColorSchema)
+    .describe("List of color definitions for the theme"), // Record of colors, where each key is a color name and the value is a color object/string/array
+  "color-scheme": z
+    .enum(["light", "dark"])
+    .default("light")
+    .describe("If this theme is a light or dark theme"), // Optional color scheme; will be set to "light" or "dark" depending on the theme key
 });
 
 const DEFAULT_TAILWIND_CONF = `
@@ -54,17 +64,21 @@ export default {
  * @typedef {z.infer<typeof ThemesSchema>} RawThemes
  */
 export const ThemesSchema = z.object({
-  "default-light-theme": z.string().optional(),
-  "default-dark-theme": z.string().optional(),
-  themes: z.record(z.string(), ThemeSchema),
-  // themes: z.record(z.string(), ThemeSchema).refine((themes) => {
-  //   // Set default values for color-scheme if not provided
-  //   Object.entries(themes).forEach(([_, themeValue]) => {
-  //     if (!themeValue["color-scheme"]) {
-  //       themeValue["color-scheme"] = "light"; // Default to theme key (light, dark, etc.)
-  //     }
-  //   });
-  //   return true;
-  // }),
-  "tailwind-config-template": z.string().default(DEFAULT_TAILWIND_CONF),
+  "default-light-theme": z
+    .string()
+    .optional()
+    .describe("Default theme to use for light mode"),
+  "default-dark-theme": z
+    .string()
+    .optional()
+    .describe("Default theme to use for dark mode"),
+  themes: z
+    .record(z.string(), ThemeSchema)
+    .describe("The themes available for the application"),
+  "tailwind-config-template": z
+    .string()
+    .default(DEFAULT_TAILWIND_CONF)
+    .describe(
+      "The template to fill the `tailwind.config.js`, `$TAILWIND_COLORS` gets replaced with the colors for all the themes",
+    ),
 });
