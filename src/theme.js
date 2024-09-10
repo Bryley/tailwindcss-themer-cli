@@ -148,7 +148,7 @@ function toColor(name, raw) {
     });
   }
 
-  return Object.entries(raw).map((num, col) => {
+  return Object.entries(raw).map(([num, col]) => {
     return {
       name: `${name}-${num}`,
       color: chroma(col),

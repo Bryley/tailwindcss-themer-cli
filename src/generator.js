@@ -59,13 +59,13 @@ export function generateCss(themes) {
   }
 
   strings.push(":root {\n");
-  strings.push(`${INDENT}@apply .${themes.defaultLightTheme};\n`);
+  strings.push(`${INDENT}@apply ${themes.defaultLightTheme};\n`);
   strings.push("}\n\n");
 
   if (themes.defaultDarkTheme !== null) {
     strings.push("@media (prefers-color-scheme: dark) {\n");
     strings.push(`${INDENT}:root {\n`);
-    strings.push(`${INDENT}${INDENT}@apply .${themes.defaultDarkTheme};\n`);
+    strings.push(`${INDENT}${INDENT}@apply ${themes.defaultDarkTheme};\n`);
     strings.push(`${INDENT}}\n}\n\n`);
   }
 
