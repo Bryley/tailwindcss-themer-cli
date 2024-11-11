@@ -1,8 +1,8 @@
 {
     "name": "tailwindcss-themer-cli",
     "type": "module",
-    "version": "1.0.1",
-    "description": "CLI tool for generating tailwind theming colors",
+    "version": "2.0.0",
+    "description": "Small Javascript library for handling tailwind themes",
     "main": "./src/index.js",
     "scripts": {
         "run": "node ./src/index.js",

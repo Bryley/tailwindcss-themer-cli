@@ -1,6 +1,8 @@
 node_modules/
 
+.direnv/
 /tailwind.config.js
 /tailwind.css
 /theme.js
 /theme.yaml
+srcold/
